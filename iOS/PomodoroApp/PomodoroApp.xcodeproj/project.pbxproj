@@ -7,8 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		ED456383214BE1400072A1AC /* QuickStatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED456382214BE1400072A1AC /* QuickStatsView.swift */; };
+		ED456385214BEF020072A1AC /* WorkDay.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED456384214BEF020072A1AC /* WorkDay.swift */; };
+		ED456387214BEF0F0072A1AC /* WorkSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED456386214BEF0F0072A1AC /* WorkSession.swift */; };
+		EDAEC87E214BF9B900A31E92 /* TimeHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDAEC87D214BF9B800A31E92 /* TimeHandler.swift */; };
+		EDAEC880214BF9EF00A31E92 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDAEC87F214BF9EF00A31E92 /* Constants.swift */; };
+		EDAEC883214C0D2600A31E92 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDAEC882214C0D2600A31E92 /* Settings.swift */; };
 		EDEC191921074A3F00B2A475 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDEC191821074A3F00B2A475 /* AppDelegate.swift */; };
-		EDEC191B21074A3F00B2A475 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDEC191A21074A3F00B2A475 /* ViewController.swift */; };
+		EDEC191B21074A3F00B2A475 /* TimerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDEC191A21074A3F00B2A475 /* TimerViewController.swift */; };
 		EDEC191E21074A3F00B2A475 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EDEC191C21074A3F00B2A475 /* Main.storyboard */; };
 		EDEC192021074A4000B2A475 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EDEC191F21074A4000B2A475 /* Assets.xcassets */; };
 		EDEC192321074A4000B2A475 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EDEC192121074A4000B2A475 /* LaunchScreen.storyboard */; };
@@ -34,9 +40,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		ED456382214BE1400072A1AC /* QuickStatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickStatsView.swift; sourceTree = "<group>"; };
+		ED456384214BEF020072A1AC /* WorkDay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkDay.swift; sourceTree = "<group>"; };
+		ED456386214BEF0F0072A1AC /* WorkSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkSession.swift; sourceTree = "<group>"; };
+		EDAEC87D214BF9B800A31E92 /* TimeHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeHandler.swift; sourceTree = "<group>"; };
+		EDAEC87F214BF9EF00A31E92 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		EDAEC882214C0D2600A31E92 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		EDEC191521074A3F00B2A475 /* PomodoroApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PomodoroApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EDEC191821074A3F00B2A475 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		EDEC191A21074A3F00B2A475 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		EDEC191A21074A3F00B2A475 /* TimerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerViewController.swift; sourceTree = "<group>"; };
 		EDEC191D21074A3F00B2A475 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		EDEC191F21074A4000B2A475 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		EDEC192221074A4000B2A475 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -74,6 +86,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		ED456381214BE0EC0072A1AC /* Timer */ = {
+			isa = PBXGroup;
+			children = (
+				EDEC191A21074A3F00B2A475 /* TimerViewController.swift */,
+				EDAEC87D214BF9B800A31E92 /* TimeHandler.swift */,
+				ED456382214BE1400072A1AC /* QuickStatsView.swift */,
+				EDAEC87F214BF9EF00A31E92 /* Constants.swift */,
+			);
+			path = Timer;
+			sourceTree = "<group>";
+		};
+		EDAEC881214C0D1A00A31E92 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				EDAEC882214C0D2600A31E92 /* Settings.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
 		EDEC190C21074A3F00B2A475 = {
 			isa = PBXGroup;
 			children = (
@@ -97,8 +128,11 @@
 		EDEC191721074A3F00B2A475 /* PomodoroApp */ = {
 			isa = PBXGroup;
 			children = (
+				EDAEC881214C0D1A00A31E92 /* Settings */,
+				ED456381214BE0EC0072A1AC /* Timer */,
+				ED456384214BEF020072A1AC /* WorkDay.swift */,
+				ED456386214BEF0F0072A1AC /* WorkSession.swift */,
 				EDEC191821074A3F00B2A475 /* AppDelegate.swift */,
-				EDEC191A21074A3F00B2A475 /* ViewController.swift */,
 				EDEC191C21074A3F00B2A475 /* Main.storyboard */,
 				EDEC191F21074A4000B2A475 /* Assets.xcassets */,
 				EDEC192121074A4000B2A475 /* LaunchScreen.storyboard */,
@@ -256,7 +290,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EDEC191B21074A3F00B2A475 /* ViewController.swift in Sources */,
+				ED456383214BE1400072A1AC /* QuickStatsView.swift in Sources */,
+				ED456385214BEF020072A1AC /* WorkDay.swift in Sources */,
+				EDAEC883214C0D2600A31E92 /* Settings.swift in Sources */,
+				EDEC191B21074A3F00B2A475 /* TimerViewController.swift in Sources */,
+				EDAEC87E214BF9B900A31E92 /* TimeHandler.swift in Sources */,
+				EDAEC880214BF9EF00A31E92 /* Constants.swift in Sources */,
+				ED456387214BEF0F0072A1AC /* WorkSession.swift in Sources */,
 				EDEC191921074A3F00B2A475 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
