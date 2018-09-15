@@ -12,15 +12,24 @@ class TimerViewController: UIViewController {
     
     @IBOutlet private weak var mainTimerLabel: UILabel!
     
+    @IBOutlet private weak var backButton: UIButton!
+    
     @IBOutlet private weak var startButton: UIButton!
     @IBOutlet private weak var resumeButton: UIButton!
     @IBOutlet private weak var pauseButton: UIButton!
     @IBOutlet private weak var stopButton: UIButton!
     
+    @IBOutlet private var infoPanelTitles: [UILabel]!
+    @IBOutlet private var infoPanelValues: [UILabel]!
+    
+    @IBOutlet private weak var projectLabel: UILabel!
+    
     override func viewDidLoad() {
         hideButtons()
-        setFontsAsMonospaced()
+        configureFonts()
         createObservers()
+        
+        //backButton.imageView?.contentMode = .scaleAspectFit
     }
     
     private func hideButtons() {
@@ -29,8 +38,27 @@ class TimerViewController: UIViewController {
         stopButton.alpha = 0.0
     }
     
-    private func setFontsAsMonospaced() {
-        mainTimerLabel.font = UIFont.monospacedDigitSystemFont(ofSize: 64.0, weight: UIFont.Weight.light)
+    private func configureFonts() {
+        var baseFont = UIFont.monospacedDigitSystemFont(ofSize: mainTimerFontSize, weight: UIFont.Weight.light)
+        mainTimerLabel.font = UIFontMetrics(forTextStyle: .body).scaledFont(for: baseFont)
+        
+        baseFont = UIFont.monospacedDigitSystemFont(ofSize: infoPanelTitlesFontSize, weight: UIFont.Weight.regular)
+        infoPanelTitles.forEach { $0.font = UIFontMetrics(forTextStyle: .body).scaledFont(for: baseFont) }
+        
+        baseFont = UIFont.monospacedDigitSystemFont(ofSize: infoPanelValuesFontSize, weight: UIFont.Weight.semibold)
+        infoPanelValues.forEach { $0.font = UIFontMetrics(forTextStyle: .body).scaledFont(for: baseFont) }
+    }
+    
+    private var mainTimerFontSize: CGFloat {
+        return view.bounds.height * CGFloat(Constants.SizeRatios.mainTimerFontSizeToBoundsHeight)
+    }
+    
+    private var infoPanelTitlesFontSize: CGFloat {
+        return view.bounds.height * CGFloat(Constants.SizeRatios.infoPanelTitlesFontSizeToBoundsHeight)
+    }
+    
+    private var infoPanelValuesFontSize: CGFloat {
+        return view.bounds.height * CGFloat(Constants.SizeRatios.infoPanelValuesFontSizeToBoundsHeight)
     }
     
     private func createObservers() {
@@ -89,7 +117,7 @@ extension Int {
         let hours = self / 3_600
         let minutes = numberFormatter.string(from: ((self % 3_600) / 60) as NSNumber)!
         
-        return "\(hours)h \(minutes)'"
+        return "\(hours):\(minutes)'"
     }
     
     var asHMS: String {
@@ -100,6 +128,6 @@ extension Int {
         let minutes = hours > 0 ? numberFormatter.string(from: ((self % 3_600) / 60) as NSNumber)! : String(self / 60)
         let seconds = numberFormatter.string(from: (self % 60) as NSNumber)!
         
-        return hours > 0 ? "\(hours)h \(minutes)' \(seconds)''" : "\(minutes)' \(seconds)''"
+        return hours > 0 ? "\(hours):\(minutes):\(seconds)" : "\(minutes):\(seconds)"
     }
 }
