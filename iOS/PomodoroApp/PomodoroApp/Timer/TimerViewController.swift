@@ -9,6 +9,7 @@ class TimerViewController: UIViewController {
     }
     
     private var mainTimer = TimeHandler()
+    private var timeOnPauseTimer = TimeHandler()
     
     @IBOutlet private weak var mainTimerLabel: UILabel!
     
@@ -22,43 +23,22 @@ class TimerViewController: UIViewController {
     @IBOutlet private var infoPanelTitles: [UILabel]!
     @IBOutlet private var infoPanelValues: [UILabel]!
     
-    @IBOutlet private weak var projectLabel: UILabel!
+    @IBOutlet private weak var timeOnPauseTitle: UILabel!
+    
+    @IBOutlet private weak var timeOnPauseLabel: UILabel!
+    
+    @IBOutlet private weak var workInfoStackView: UIStackView!
     
     override func viewDidLoad() {
+        super.viewDidLoad()
         hideButtons()
-        configureFonts()
         createObservers()
-        
-        //backButton.imageView?.contentMode = .scaleAspectFit
     }
     
     private func hideButtons() {
         resumeButton.alpha = 0.0
         pauseButton.alpha = 0.0
         stopButton.alpha = 0.0
-    }
-    
-    private func configureFonts() {
-        var baseFont = UIFont.monospacedDigitSystemFont(ofSize: mainTimerFontSize, weight: UIFont.Weight.light)
-        mainTimerLabel.font = UIFontMetrics(forTextStyle: .body).scaledFont(for: baseFont)
-        
-        baseFont = UIFont.monospacedDigitSystemFont(ofSize: infoPanelTitlesFontSize, weight: UIFont.Weight.regular)
-        infoPanelTitles.forEach { $0.font = UIFontMetrics(forTextStyle: .body).scaledFont(for: baseFont) }
-        
-        baseFont = UIFont.monospacedDigitSystemFont(ofSize: infoPanelValuesFontSize, weight: UIFont.Weight.semibold)
-        infoPanelValues.forEach { $0.font = UIFontMetrics(forTextStyle: .body).scaledFont(for: baseFont) }
-    }
-    
-    private var mainTimerFontSize: CGFloat {
-        return view.bounds.height * CGFloat(Constants.SizeRatios.mainTimerFontSizeToBoundsHeight)
-    }
-    
-    private var infoPanelTitlesFontSize: CGFloat {
-        return view.bounds.height * CGFloat(Constants.SizeRatios.infoPanelTitlesFontSizeToBoundsHeight)
-    }
-    
-    private var infoPanelValuesFontSize: CGFloat {
-        return view.bounds.height * CGFloat(Constants.SizeRatios.infoPanelValuesFontSizeToBoundsHeight)
     }
     
     private func createObservers() {
@@ -68,6 +48,53 @@ class TimerViewController: UIViewController {
             name: Notification.Name(rawValue: Constants.NotificationKeys.aSecondHasPassed),
             object: nil
         )
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        largestDimension = view.bounds.height > view.bounds.width ? view.bounds.height : view.bounds.width
+        configureFonts()
+        adjsutInfoPanelStackViews()
+    }
+    
+    private func configureFonts() {
+        var baseFont = UIFont.monospacedDigitSystemFont(ofSize: mainTimerFontSize, weight: UIFont.Weight.light)
+        mainTimerLabel.font = UIFontMetrics(forTextStyle: .body).scaledFont(for: baseFont)
+        
+        baseFont = UIFont.monospacedDigitSystemFont(ofSize: infoPanelTitlesFontSize, weight: UIFont.Weight.light)
+        infoPanelTitles.forEach { $0.font = UIFontMetrics(forTextStyle: .body).scaledFont(for: baseFont) }
+        
+        baseFont = UIFont.monospacedDigitSystemFont(ofSize: infoPanelValuesFontSize, weight: UIFont.Weight.regular)
+        infoPanelValues.forEach { $0.font = UIFontMetrics(forTextStyle: .body).scaledFont(for: baseFont) }
+    }
+    
+    var largestDimension: CGFloat?
+    
+    private var mainTimerFontSize: CGFloat {
+        return largestDimension! * Constants.SizeRatios.mainTimerFontSizeToBoundsHeight
+    }
+    
+    private var infoPanelTitlesFontSize: CGFloat {
+        return largestDimension! * Constants.SizeRatios.infoPanelTitlesFontSizeToBoundsHeight
+    }
+    
+    private var infoPanelValuesFontSize: CGFloat {
+        return largestDimension! * Constants.SizeRatios.infoPanelValuesFontSizeToBoundsHeight
+    }
+    
+    private func adjsutInfoPanelStackViews() {
+        if traitCollection.verticalSizeClass == .regular {
+            workInfoStackView.spacing = view.bounds.height * Constants.SizeRatios.infoPanelSpacingToBoundsHeight
+            infoPanelTitles.forEach { $0.textAlignment = .left }
+            infoPanelValues.forEach { $0.textAlignment = .left }
+            timeOnPauseTitle.textAlignment = .right
+            timeOnPauseLabel.textAlignment = .right
+        } else {
+            workInfoStackView.spacing = 0.0
+            infoPanelTitles.forEach { $0.textAlignment = .center }
+            infoPanelValues.forEach { $0.textAlignment = .center }
+        }
     }
     
     @objc private func updateTime() {

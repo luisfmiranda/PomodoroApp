@@ -1,12 +1,15 @@
-import Foundation
+import UIKit
 
 struct Constants {
     static let timeAtom = 0.01
     
     struct SizeRatios {
-        static let mainTimerFontSizeToBoundsHeight: Double = 1 / 16
-        static let infoPanelTitlesFontSizeToBoundsHeight: Double = 1 / 68
-        static let infoPanelValuesFontSizeToBoundsHeight: Double = 1 / 40
+        static let mainTimerFontSizeToBoundsHeight: CGFloat = 1 / 13
+        static let infoPanelTitlesFontSizeToBoundsHeight: CGFloat = 1 / 73
+        static let infoPanelValuesFontSizeToBoundsHeight: CGFloat = 1 / 37
+        static let infoPanelSpacingToBoundsHeight: CGFloat = 1 / 24
+        
+        static let quickStatsLineWidthToBoundsHeight: CGFloat = 1 / 100
     }
     
     struct NotificationKeys {
