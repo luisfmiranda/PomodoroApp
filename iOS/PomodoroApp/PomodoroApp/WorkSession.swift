@@ -11,5 +11,11 @@ struct WorkSession {
     }
     
     let duration = Settings.workSessionDuration
+    
     var remainingTime = Settings.workSessionDuration
+    var elapsedTime: Int { return duration - remainingTime }
+    
+    var timeOnPause = 0
+    
+    var overallElapsedTime: Int { return elapsedTime + timeOnPause }
 }

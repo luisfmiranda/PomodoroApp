@@ -67,10 +67,10 @@
                                 </constraints>
                                 <state key="normal" backgroundImage="stop"/>
                                 <connections>
-                                    <action selector="touchStopButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="EJW-5t-cMZ"/>
+                                    <action selector="touchStopButton" destination="BYZ-38-t0r" eventType="touchUpInside" id="hsF-O2-8om"/>
                                 </connections>
                             </button>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="4h0-GI-Trk" userLabel="Work Info SV">
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="4h0-GI-Trk" userLabel="Info Panel SV">
                                 <rect key="frame" x="16" y="578.66666666666663" width="343" height="183.33333333333337"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="oKe-yY-QPO" userLabel="Project SV">
@@ -232,11 +232,12 @@
                                     </mask>
                                 </variation>
                             </stackView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eU8-kw-BVY" userLabel="Quick Stats Helper View">
+                            <view contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="eU8-kw-BVY" userLabel="Quick Stats Helper View">
                                 <rect key="frame" x="0.0" y="105.33333333333333" width="375" height="255.33333333333337"/>
                                 <subviews>
                                     <view contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="ZGQ-NG-RCJ" customClass="QuickStatsView" customModule="PomodoroApp" customModuleProvider="target">
                                         <rect key="frame" x="8" y="26.666666666666671" width="359" height="202"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="ZGQ-NG-RCJ" secondAttribute="height" multiplier="16:9" id="lge-HG-KHx"/>
                                         </constraints>
@@ -317,6 +318,8 @@
                             <mask key="constraints">
                                 <exclude reference="0gy-JW-Lr6"/>
                                 <exclude reference="Sau-RI-h9O"/>
+                                <exclude reference="0Vm-YR-9iD"/>
+                                <exclude reference="wxJ-nd-3Mq"/>
                                 <exclude reference="48o-ZK-t8b"/>
                                 <exclude reference="8Ja-66-Mco"/>
                                 <exclude reference="Dhj-uB-jw0"/>
@@ -326,10 +329,8 @@
                                 <exclude reference="Q2V-z8-yAb"/>
                                 <exclude reference="81K-sX-ZqC"/>
                                 <exclude reference="J20-EJ-Y1M"/>
-                                <exclude reference="OMt-mN-CyE"/>
                                 <exclude reference="ZU6-uG-YzV"/>
-                                <exclude reference="0Vm-YR-9iD"/>
-                                <exclude reference="wxJ-nd-3Mq"/>
+                                <exclude reference="OMt-mN-CyE"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=compact">
@@ -337,6 +338,7 @@
                                 <include reference="0gy-JW-Lr6"/>
                                 <exclude reference="8Wg-fk-Kff"/>
                                 <include reference="Sau-RI-h9O"/>
+                                <include reference="wxJ-nd-3Mq"/>
                                 <include reference="Dhj-uB-jw0"/>
                                 <exclude reference="Ntd-nM-UzZ"/>
                                 <include reference="RdM-YB-6nk"/>
@@ -350,32 +352,35 @@
                                 <include reference="J20-EJ-Y1M"/>
                                 <exclude reference="jvt-bL-QiY"/>
                                 <exclude reference="ykR-su-IBZ"/>
-                                <exclude reference="1S4-4n-2cB"/>
-                                <include reference="OMt-mN-CyE"/>
                                 <include reference="ZU6-uG-YzV"/>
                                 <exclude reference="cCB-b3-CDa"/>
-                                <include reference="wxJ-nd-3Mq"/>
+                                <exclude reference="1S4-4n-2cB"/>
+                                <include reference="OMt-mN-CyE"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular">
                             <mask key="constraints">
+                                <include reference="0Vm-YR-9iD"/>
                                 <include reference="48o-ZK-t8b"/>
                                 <include reference="8Ja-66-Mco"/>
                                 <exclude reference="IPi-IZ-rJS"/>
-                                <include reference="0Vm-YR-9iD"/>
                             </mask>
                         </variation>
                     </view>
                     <connections>
                         <outlet property="backButton" destination="2AG-PE-TeX" id="ius-Rr-BKt"/>
+                        <outlet property="infoPanelStackView" destination="4h0-GI-Trk" id="C79-HL-Qxg"/>
                         <outlet property="mainTimerLabel" destination="ekn-Fi-Dif" id="x7W-W9-55x"/>
                         <outlet property="pauseButton" destination="6cO-J8-ZzQ" id="PjP-mG-3Ce"/>
+                        <outlet property="projectLabel" destination="lQd-dk-OTb" id="zb4-n2-BcF"/>
+                        <outlet property="quickStatsView" destination="ZGQ-NG-RCJ" id="TlH-7q-bYT"/>
                         <outlet property="resumeButton" destination="wol-bl-6q0" id="Udj-tg-RCq"/>
                         <outlet property="startButton" destination="raQ-Ad-XIW" id="hgT-5j-BQ9"/>
                         <outlet property="stopButton" destination="sxI-Bc-8lf" id="MoE-Yk-Nth"/>
                         <outlet property="timeOnPauseLabel" destination="eAp-Gi-jpu" id="nCh-LH-Ihv"/>
                         <outlet property="timeOnPauseTitle" destination="T6o-JY-9bd" id="dGA-hy-oVG"/>
-                        <outlet property="workInfoStackView" destination="4h0-GI-Trk" id="C79-HL-Qxg"/>
+                        <outlet property="timeWorkedLabel" destination="Iai-ly-RfV" id="bC9-6f-Lht"/>
+                        <outlet property="workSessionsLabel" destination="DUg-nd-sNJ" id="O92-zr-4bB"/>
                         <outletCollection property="infoPanelTitles" destination="3tH-y3-Ngc" collectionClass="NSMutableArray" id="Lar-CV-TIo"/>
                         <outletCollection property="infoPanelTitles" destination="Zpl-c1-AVT" collectionClass="NSMutableArray" id="HcW-dV-wGn"/>
                         <outletCollection property="infoPanelTitles" destination="fub-oZ-nQV" collectionClass="NSMutableArray" id="pAh-ki-PFE"/>
