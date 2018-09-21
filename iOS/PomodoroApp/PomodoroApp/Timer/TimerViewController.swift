@@ -3,19 +3,12 @@ import UIKit
 class TimerViewController: UIViewController {
     private var currentDay = WorkDay() {
         didSet {
-            workSessionsLabel.text = "\(currentDay.workSessionsCount) / \(Settings.workSessionsGoal)"
-            timeWorkedLabel.text = "\(currentDay.workTime.asHM) / \(Settings.workTimeGoal.asHM)"
-            timeOnPauseLabel.text = "\(currentDay.timeOnPause.asHM) / \(Settings.timeOnPauseGoal.asHM)"
-        }
-    }
-    
-    @IBOutlet weak var quickStatsView: QuickStatsView!
-    
-    private var currentWorkSession = WorkSession() {
-        didSet {
-            if currentWorkSession.remainingTime == 0 {
-                currentWorkSession.status = .completed
-                currentDay.workSessions.append(currentWorkSession)
+            mainTimerLabel.text = currentDay.currentSession.remainingTime.asHMS
+
+            if currentDay.currentSession.remainingTime == 0 {
+                currentDay.sessions[currentDay.sessionsCount - 1].status = .completed
+                currentDay.workingLog = quickStatsView.workingLog
+                updateSessionInfo()
                 
                 // now that the work session is concluded, the transition points become permanent
                 for transition in quickStatsView.workingLog.transitionsInTheCurrentSession {
@@ -48,21 +41,22 @@ class TimerViewController: UIViewController {
                 }
                 
                 touchStopButton()
-            
-            // every round minute since a state change
-            } else if ((oldValue.status != .notStartedYet) && ((currentWorkSession.remainingTime % 60) == 0))
-                || ((currentWorkSession.timeOnPause != 0) && ((currentWorkSession.timeOnPause % 60) == 0)) {
+                
+                // every round minute since a state change
+            } else if ((currentDay.currentSession.elapsedTime != 0) && ((currentDay.currentSession.elapsedTime % 60) == 0))
+                || ((currentDay.currentSession.timeOnPause != 0) && ((currentDay.currentSession.timeOnPause % 60) == 0)) {
+                updateSessionInfo()
                 
                 // check if there are a new (and provisional) longest working time
-                let totalTimeWorkedToday = currentDay.workTime + currentWorkSession.elapsedTime
-                if (totalTimeWorkedToday / 60) > Records.longestWorkingTime {
-                    Records.longestWorkingTime = totalTimeWorkedToday / 60
+                if (currentDay.workTime / 60) > Records.longestWorkingTime {
+                    Records.longestWorkingTime = currentDay.workTime / 60
                     print("Records.longestWorkingTime: \(Records.longestWorkingTime)")
                 }
                 
                 // creates a transition corresponding to the round minute
                 let minutesSinceMidnight = countMinutesSinceMidnight()
-                let transitionTriggeredByTheTimer = Transition(id: "\(currentWorkSession.status)...", time: minutesSinceMidnight, workedTime: totalTimeWorkedToday / 60)
+                let transitionTriggeredByTheTimer = Transition(id: "\(currentDay.currentSession.status)...",
+                    time: minutesSinceMidnight, workedTime: currentDay.workTime / 60)
                 
                 // if it happened in a different minute compared to the most recent transition (regarding a real clock),
                 // we have to add it to the list of transitions in the current session
@@ -79,10 +73,16 @@ class TimerViewController: UIViewController {
                     Records.latestTransition = minutesSinceMidnight
                 }
             }
-            
-            mainTimerLabel.text = currentWorkSession.remainingTime.asHMS
         }
     }
+    
+    private func updateSessionInfo() {
+        workSessionsLabel.text = "\(currentDay.completedSessionsCount) / \(Settings.workSessionsGoal)"
+        timeWorkedLabel.text = "\(currentDay.workTime.asHM) / \(Settings.workTimeGoal.asHM)"
+        timeOnPauseLabel.text = "\(currentDay.timeOnPause.asHM) / \(Settings.timeOnPauseGoal.asHM)"
+    }
+    
+    @IBOutlet weak var quickStatsView: QuickStatsView!
 
     private var mainTimer = TimeHandler()
     private var timeOnPauseTimer = TimeHandler()
@@ -113,7 +113,8 @@ class TimerViewController: UIViewController {
         hideButtons()
         createObservers()
         
-        mainTimerLabel.text = currentWorkSession.remainingTime.asHMS
+        currentDay.sessions.append(WorkSession())
+        mainTimerLabel.text = currentDay.currentSession.duration.asHMS
     }
     
     private func hideButtons() {
@@ -179,11 +180,11 @@ class TimerViewController: UIViewController {
     }
     
     @objc private func updateTime() {
-        switch currentWorkSession.status {
+        switch currentDay.currentSession.status {
         case .onGoing:
-            currentWorkSession.remainingTime -= 1
+            currentDay.sessions[currentDay.sessionsCount - 1].remainingTime -= 1
         case .onPause:
-            currentWorkSession.timeOnPause += 1
+            currentDay.sessions[currentDay.sessionsCount - 1].timeOnPause += 1
         default:
             break
         }
@@ -191,7 +192,7 @@ class TimerViewController: UIViewController {
     
     @IBAction func touchStartButton(_ sender: UIButton) {
         mainTimer.start()
-        currentWorkSession.status = .onGoing
+        currentDay.sessions[currentDay.sessionsCount - 1].status = .onGoing
         animateButtons(faddingIn: [pauseButton, stopButton], faddingOut: [startButton, resumeButton])
         
         // checks if the start of the working session has the earliest or latest beginning so far
@@ -211,19 +212,18 @@ class TimerViewController: UIViewController {
     @IBAction func touchPauseButton(_ sender: UIButton) {
         mainTimer.stop()
         timeOnPauseTimer.start()
-        currentWorkSession.status = .onPause
+        currentDay.sessions[currentDay.sessionsCount - 1].status = .onPause
         animateButtons(faddingIn: [resumeButton], faddingOut: [pauseButton])
         
-        let minutesSinceMidnight = countMinutesSinceMidnight()
-        
         // checks if the new transition is the latest so far
+        let minutesSinceMidnight = countMinutesSinceMidnight()
         if let latestTransition = Records.latestTransition, minutesSinceMidnight > latestTransition {
             Records.latestTransition = minutesSinceMidnight
         }
         
         // creates a transition corresponding to the moment in which the pause button was pressed
-        let totalTimeWorkedToday = currentDay.workTime + currentWorkSession.elapsedTime
-        let transitionOnPause = Transition(id: "Paused.", time: minutesSinceMidnight, workedTime: totalTimeWorkedToday / 60)
+        let transitionOnPause = Transition(id: "Paused.", time: minutesSinceMidnight,
+                                           workedTime: currentDay.workTime / 60)
         
         // if it happened in a different minute compared to the most recent transition (regarding a real clock),
         // we have to add it to the list of transitions in the current session
@@ -239,7 +239,7 @@ class TimerViewController: UIViewController {
     @IBAction func touchResumeButton(_ sender: UIButton) {
         timeOnPauseTimer.stop()
         mainTimer.start()
-        currentWorkSession.status = .onGoing
+        currentDay.sessions[currentDay.sessionsCount - 1].status = .onGoing
         animateButtons(faddingIn: [pauseButton], faddingOut: [resumeButton])
         
         let minutesSinceMidnight = countMinutesSinceMidnight()
@@ -250,8 +250,8 @@ class TimerViewController: UIViewController {
         }
         
         // creates a transition corresponding to the moment in which the resume button was pressed
-        let totalTimeWorkedToday = currentDay.workTime + currentWorkSession.elapsedTime
-        let transitionOnResume = Transition(id: "Resumed.", time: minutesSinceMidnight, workedTime: totalTimeWorkedToday / 60)
+        let transitionOnResume = Transition(id: "Resumed.", time: minutesSinceMidnight,
+                                            workedTime: currentDay.workTime / 60)
         
         // if it happened in a different minute compared to the most recent transition (regarding a real clock),
         // we have to add it to the list of transitions in the current session
@@ -265,7 +265,7 @@ class TimerViewController: UIViewController {
     }
     
     @IBAction func touchStopButton() {
-        currentWorkSession = WorkSession()
+        currentDay.sessions.append(WorkSession())
         mainTimer.stop()
         timeOnPauseTimer.stop()
         animateButtons(faddingIn: [startButton], faddingOut: [pauseButton, resumeButton, stopButton])

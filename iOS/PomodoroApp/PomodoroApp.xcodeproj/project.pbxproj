@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		ED36625C2155246A005D137E /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED36625B2155246A005D137E /* UserData.swift */; };
 		ED456383214BE1400072A1AC /* QuickStatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED456382214BE1400072A1AC /* QuickStatsView.swift */; };
 		ED456385214BEF020072A1AC /* WorkDay.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED456384214BEF020072A1AC /* WorkDay.swift */; };
 		ED456387214BEF0F0072A1AC /* WorkSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED456386214BEF0F0072A1AC /* WorkSession.swift */; };
@@ -42,6 +43,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		ED36625B2155246A005D137E /* UserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
 		ED456382214BE1400072A1AC /* QuickStatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickStatsView.swift; sourceTree = "<group>"; };
 		ED456384214BEF020072A1AC /* WorkDay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkDay.swift; sourceTree = "<group>"; };
 		ED456386214BEF0F0072A1AC /* WorkSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkSession.swift; sourceTree = "<group>"; };
@@ -146,6 +148,7 @@
 				ED456381214BE0EC0072A1AC /* Timer */,
 				ED456384214BEF020072A1AC /* WorkDay.swift */,
 				ED456386214BEF0F0072A1AC /* WorkSession.swift */,
+				ED36625B2155246A005D137E /* UserData.swift */,
 				EDEC191821074A3F00B2A475 /* AppDelegate.swift */,
 				EDEC191C21074A3F00B2A475 /* Main.storyboard */,
 				EDEC191F21074A4000B2A475 /* Assets.xcassets */,
@@ -309,6 +312,7 @@
 				ED456385214BEF020072A1AC /* WorkDay.swift in Sources */,
 				EDAEC883214C0D2600A31E92 /* Settings.swift in Sources */,
 				EDEC191B21074A3F00B2A475 /* TimerViewController.swift in Sources */,
+				ED36625C2155246A005D137E /* UserData.swift in Sources */,
 				EDAEC87E214BF9B900A31E92 /* TimeHandler.swift in Sources */,
 				EDAEC880214BF9EF00A31E92 /* Constants.swift in Sources */,
 				ED456387214BEF0F0072A1AC /* WorkSession.swift in Sources */,
