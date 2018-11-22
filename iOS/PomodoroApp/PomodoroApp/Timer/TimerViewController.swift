@@ -7,12 +7,11 @@ class TimerViewController: UIViewController {
 
             if currentDay.currentSession.remainingTime == 0 {
                 currentDay.sessions[currentDay.sessionsCount - 1].status = .completed
-                currentDay.workingLog = quickStatsView.workingLog
                 updateSessionInfo()
                 
                 // now that the work session is concluded, the transition points become permanent
-                for transition in quickStatsView.workingLog.transitionsInTheCurrentSession {
-                    quickStatsView.workingLog.transitionsInCompletedSessions.append(transition)
+                for transition in currentDay.workingLog.transitionsInTheCurrentSession {
+                    currentDay.workingLog.transitionsInCompletedSessions.append(transition)
                 }
                 
                 // then we create the last transition (triggered when the session is completed)
@@ -21,14 +20,14 @@ class TimerViewController: UIViewController {
                 
                 // and if it happened after the temporary transition (regarding a real clock), we have to include the
                 // temporary transition
-                if let mostRecentTransition = quickStatsView.workingLog.temporaryTransition {
+                if let mostRecentTransition = currentDay.workingLog.temporaryTransition {
                     if transitionOnCompletion.time != mostRecentTransition.time {
-                        quickStatsView.workingLog.transitionsInCompletedSessions.append(mostRecentTransition)
+                        currentDay.workingLog.transitionsInCompletedSessions.append(mostRecentTransition)
                     }
                 }
                 
                 // and then we save the last transition
-                quickStatsView.workingLog.transitionsInCompletedSessions.append(transitionOnCompletion)
+                currentDay.workingLog.transitionsInCompletedSessions.append(transitionOnCompletion)
                 
                 // checks if there are a new longest working time
                 if (currentDay.workTime / 60) > Records.longestWorkingTime {
@@ -43,8 +42,10 @@ class TimerViewController: UIViewController {
                 touchStopButton()
                 
                 // every round minute since a state change
-            } else if ((currentDay.currentSession.elapsedTime != 0) && ((currentDay.currentSession.elapsedTime % 60) == 0))
-                || ((currentDay.currentSession.timeOnPause != 0) && ((currentDay.currentSession.timeOnPause % 60) == 0)) {
+            } else if ((currentDay.currentSession.elapsedTime != 0)
+                && ((currentDay.currentSession.elapsedTime % 60) == 0))
+                || ((currentDay.currentSession.timeOnPause != 0)
+                && ((currentDay.currentSession.timeOnPause % 60) == 0)) {
                 updateSessionInfo()
                 
                 // check if there are a new (and provisional) longest working time
@@ -60,26 +61,38 @@ class TimerViewController: UIViewController {
                 
                 // if it happened in a different minute compared to the most recent transition (regarding a real clock),
                 // we have to add it to the list of transitions in the current session
-                if let mostRecentTransition = quickStatsView.workingLog.temporaryTransition {
+                if let mostRecentTransition = currentDay.workingLog.temporaryTransition {
                     if transitionTriggeredByTheTimer.time != mostRecentTransition.time {
-                        quickStatsView.workingLog.transitionsInTheCurrentSession.append(mostRecentTransition)
+                        currentDay.workingLog.transitionsInTheCurrentSession.append(mostRecentTransition)
                     }
                 }
                 
-                quickStatsView.workingLog.temporaryTransition = transitionTriggeredByTheTimer
+                currentDay.workingLog.temporaryTransition = transitionTriggeredByTheTimer
                 
                 // checks if the new transition is the latest so far
                 if Records.latestTransition == nil || minutesSinceMidnight > Records.latestTransition! {
                     Records.latestTransition = minutesSinceMidnight
                 }
+                
+                quickStatsView.setNeedsDisplay()
             }
         }
     }
     
     private func updateSessionInfo() {
         workSessionsLabel.text = "\(currentDay.completedSessionsCount) / \(Settings.workSessionsGoal)"
-        timeWorkedLabel.text = "\(currentDay.workTime.asHM) / \(Settings.workTimeGoal.asHM)"
-        timeOnPauseLabel.text = "\(currentDay.timeOnPause.asHM) / \(Settings.timeOnPauseGoal.asHM)"
+        
+        if let workTimeGoal = Settings.workTimeGoal {
+            timeWorkedLabel.text = "\(currentDay.workTime.asHM) / \(workTimeGoal.asHM)"
+        } else {
+            timeWorkedLabel.text = currentDay.workTime.asHM
+        }
+        
+        if let timeOnPauseGoal = Settings.timeOnPauseGoal {
+            timeOnPauseLabel.text = "\(currentDay.timeOnPause.asHM) / \(timeOnPauseGoal.asHM)"
+        } else {
+            timeOnPauseLabel.text = currentDay.timeOnPause.asHM
+        }
     }
     
     @IBOutlet weak var quickStatsView: QuickStatsView!
@@ -113,8 +126,10 @@ class TimerViewController: UIViewController {
         hideButtons()
         createObservers()
         
+        quickStatsView.workDayDataSource = self
         currentDay.sessions.append(WorkSession())
         mainTimerLabel.text = currentDay.currentSession.duration.asHMS
+        updateSessionInfo()
     }
     
     private func hideButtons() {
@@ -206,7 +221,14 @@ class TimerViewController: UIViewController {
         
         // adds a new transition point as the first one in the current session
         let transition = Transition(id: "Started", time: minutesSinceMidnight, workedTime: currentDay.workTime / 60)
-        quickStatsView.workingLog.transitionsInTheCurrentSession.append(transition)
+        currentDay.workingLog.transitionsInTheCurrentSession.append(transition)
+        
+        // registers the start of the working log
+        if currentDay.workingLog.startTime == nil {
+           currentDay.workingLog.startTime = minutesSinceMidnight
+        }
+        
+        quickStatsView.setNeedsDisplay()
     }
     
     @IBAction func touchPauseButton(_ sender: UIButton) {
@@ -227,13 +249,14 @@ class TimerViewController: UIViewController {
         
         // if it happened in a different minute compared to the most recent transition (regarding a real clock),
         // we have to add it to the list of transitions in the current session
-        if let mostRecentTransition = quickStatsView.workingLog.temporaryTransition {
+        if let mostRecentTransition = currentDay.workingLog.temporaryTransition {
             if transitionOnPause.time != mostRecentTransition.time {
-                quickStatsView.workingLog.transitionsInTheCurrentSession.append(mostRecentTransition)
+                currentDay.workingLog.transitionsInTheCurrentSession.append(mostRecentTransition)
             }
         }
         
-        quickStatsView.workingLog.temporaryTransition = transitionOnPause
+        currentDay.workingLog.temporaryTransition = transitionOnPause
+        quickStatsView.setNeedsDisplay()
     }
     
     @IBAction func touchResumeButton(_ sender: UIButton) {
@@ -255,13 +278,14 @@ class TimerViewController: UIViewController {
         
         // if it happened in a different minute compared to the most recent transition (regarding a real clock),
         // we have to add it to the list of transitions in the current session
-        if let mostRecentTransition = quickStatsView.workingLog.temporaryTransition {
+        if let mostRecentTransition = currentDay.workingLog.temporaryTransition {
             if transitionOnResume.time != mostRecentTransition.time {
-                quickStatsView.workingLog.transitionsInTheCurrentSession.append(mostRecentTransition)
+                currentDay.workingLog.transitionsInTheCurrentSession.append(mostRecentTransition)
             }
         }
         
-        quickStatsView.workingLog.temporaryTransition = transitionOnResume
+        currentDay.workingLog.temporaryTransition = transitionOnResume
+        quickStatsView.setNeedsDisplay()
     }
     
     @IBAction func touchStopButton() {
@@ -270,8 +294,9 @@ class TimerViewController: UIViewController {
         timeOnPauseTimer.stop()
         animateButtons(faddingIn: [startButton], faddingOut: [pauseButton, resumeButton, stopButton])
         
-        quickStatsView.workingLog.transitionsInTheCurrentSession.removeAll()
-        quickStatsView.workingLog.temporaryTransition = nil
+        currentDay.workingLog.transitionsInTheCurrentSession.removeAll()
+        currentDay.workingLog.temporaryTransition = nil
+        quickStatsView.setNeedsDisplay()
     }
     
     let calendar = Calendar(identifier: .gregorian)
@@ -291,6 +316,20 @@ class TimerViewController: UIViewController {
                 faddingOut.forEach { $0.alpha = 0.0 }
             }
         )
+    }
+}
+
+extension TimerViewController: WorkDayDataSource {
+    func workingLogForCurrentDay() -> WorkingLog {
+        return currentDay.workingLog
+    }
+    
+    func workTimeRemainingForCurrentDay() -> Int? {
+        return currentDay.workTimeRemaining
+    }
+    
+    func timeOnPauseRemainingForCurrentDay() -> Int? {
+        return currentDay.timeOnPauseRemaining
     }
 }
 

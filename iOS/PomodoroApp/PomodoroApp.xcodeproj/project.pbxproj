@@ -16,6 +16,7 @@
 		EDAEC883214C0D2600A31E92 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDAEC882214C0D2600A31E92 /* Settings.swift */; };
 		EDB9FA9821516AF000D0401F /* WorkingLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDB9FA9721516AF000D0401F /* WorkingLog.swift */; };
 		EDB9FA9C21517DB700D0401F /* Stats.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDB9FA9B21517DB700D0401F /* Stats.swift */; };
+		EDC6B1E9215EBEC800BB2FC6 /* WorkDayDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDC6B1E8215EBEC800BB2FC6 /* WorkDayDataSource.swift */; };
 		EDEC191921074A3F00B2A475 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDEC191821074A3F00B2A475 /* AppDelegate.swift */; };
 		EDEC191B21074A3F00B2A475 /* TimerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDEC191A21074A3F00B2A475 /* TimerViewController.swift */; };
 		EDEC191E21074A3F00B2A475 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EDEC191C21074A3F00B2A475 /* Main.storyboard */; };
@@ -52,6 +53,7 @@
 		EDAEC882214C0D2600A31E92 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		EDB9FA9721516AF000D0401F /* WorkingLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkingLog.swift; sourceTree = "<group>"; };
 		EDB9FA9B21517DB700D0401F /* Stats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stats.swift; sourceTree = "<group>"; };
+		EDC6B1E8215EBEC800BB2FC6 /* WorkDayDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkDayDataSource.swift; sourceTree = "<group>"; };
 		EDEC191521074A3F00B2A475 /* PomodoroApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PomodoroApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EDEC191821074A3F00B2A475 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EDEC191A21074A3F00B2A475 /* TimerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerViewController.swift; sourceTree = "<group>"; };
@@ -147,6 +149,7 @@
 				EDAEC881214C0D1A00A31E92 /* Settings */,
 				ED456381214BE0EC0072A1AC /* Timer */,
 				ED456384214BEF020072A1AC /* WorkDay.swift */,
+				EDC6B1E8215EBEC800BB2FC6 /* WorkDayDataSource.swift */,
 				ED456386214BEF0F0072A1AC /* WorkSession.swift */,
 				ED36625B2155246A005D137E /* UserData.swift */,
 				EDEC191821074A3F00B2A475 /* AppDelegate.swift */,
@@ -317,6 +320,7 @@
 				EDAEC880214BF9EF00A31E92 /* Constants.swift in Sources */,
 				ED456387214BEF0F0072A1AC /* WorkSession.swift in Sources */,
 				EDB9FA9821516AF000D0401F /* WorkingLog.swift in Sources */,
+				EDC6B1E9215EBEC800BB2FC6 /* WorkDayDataSource.swift in Sources */,
 				EDEC191921074A3F00B2A475 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
