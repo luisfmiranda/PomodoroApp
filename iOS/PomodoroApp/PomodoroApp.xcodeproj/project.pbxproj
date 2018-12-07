@@ -7,13 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		ED36625C2155246A005D137E /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED36625B2155246A005D137E /* UserData.swift */; };
 		ED456383214BE1400072A1AC /* QuickStatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED456382214BE1400072A1AC /* QuickStatsView.swift */; };
 		ED456385214BEF020072A1AC /* WorkDay.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED456384214BEF020072A1AC /* WorkDay.swift */; };
 		ED456387214BEF0F0072A1AC /* WorkSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED456386214BEF0F0072A1AC /* WorkSession.swift */; };
 		EDAEC87E214BF9B900A31E92 /* TimeHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDAEC87D214BF9B800A31E92 /* TimeHandler.swift */; };
 		EDAEC880214BF9EF00A31E92 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDAEC87F214BF9EF00A31E92 /* Constants.swift */; };
 		EDAEC883214C0D2600A31E92 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDAEC882214C0D2600A31E92 /* Settings.swift */; };
+		EDB9662121B90762006666BE /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDB9662021B90762006666BE /* SettingsTableViewController.swift */; };
 		EDB9FA9821516AF000D0401F /* WorkingLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDB9FA9721516AF000D0401F /* WorkingLog.swift */; };
 		EDB9FA9C21517DB700D0401F /* Stats.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDB9FA9B21517DB700D0401F /* Stats.swift */; };
 		EDC6B1E9215EBEC800BB2FC6 /* WorkDayDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDC6B1E8215EBEC800BB2FC6 /* WorkDayDataSource.swift */; };
@@ -24,6 +24,7 @@
 		EDEC192321074A4000B2A475 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EDEC192121074A4000B2A475 /* LaunchScreen.storyboard */; };
 		EDEC192E21074A4000B2A475 /* PomodoroAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDEC192D21074A4000B2A475 /* PomodoroAppTests.swift */; };
 		EDEC193921074A4000B2A475 /* PomodoroAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDEC193821074A4000B2A475 /* PomodoroAppUITests.swift */; };
+		EDEC9EB321BA50C600848679 /* CustomUITextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDEC9EB221BA50C600848679 /* CustomUITextField.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,13 +45,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		ED36625B2155246A005D137E /* UserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
 		ED456382214BE1400072A1AC /* QuickStatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickStatsView.swift; sourceTree = "<group>"; };
 		ED456384214BEF020072A1AC /* WorkDay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkDay.swift; sourceTree = "<group>"; };
 		ED456386214BEF0F0072A1AC /* WorkSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkSession.swift; sourceTree = "<group>"; };
 		EDAEC87D214BF9B800A31E92 /* TimeHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeHandler.swift; sourceTree = "<group>"; };
 		EDAEC87F214BF9EF00A31E92 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		EDAEC882214C0D2600A31E92 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
+		EDB9662021B90762006666BE /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		EDB9FA9721516AF000D0401F /* WorkingLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkingLog.swift; sourceTree = "<group>"; };
 		EDB9FA9B21517DB700D0401F /* Stats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stats.swift; sourceTree = "<group>"; };
 		EDC6B1E8215EBEC800BB2FC6 /* WorkDayDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkDayDataSource.swift; sourceTree = "<group>"; };
@@ -67,6 +68,7 @@
 		EDEC193421074A4000B2A475 /* PomodoroAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PomodoroAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		EDEC193821074A4000B2A475 /* PomodoroAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PomodoroAppUITests.swift; sourceTree = "<group>"; };
 		EDEC193A21074A4000B2A475 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EDEC9EB221BA50C600848679 /* CustomUITextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomUITextField.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,6 +111,7 @@
 			isa = PBXGroup;
 			children = (
 				EDAEC882214C0D2600A31E92 /* Settings.swift */,
+				EDB9662021B90762006666BE /* SettingsTableViewController.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -151,12 +154,12 @@
 				ED456384214BEF020072A1AC /* WorkDay.swift */,
 				EDC6B1E8215EBEC800BB2FC6 /* WorkDayDataSource.swift */,
 				ED456386214BEF0F0072A1AC /* WorkSession.swift */,
-				ED36625B2155246A005D137E /* UserData.swift */,
 				EDEC191821074A3F00B2A475 /* AppDelegate.swift */,
 				EDEC191C21074A3F00B2A475 /* Main.storyboard */,
 				EDEC191F21074A4000B2A475 /* Assets.xcassets */,
 				EDEC192121074A4000B2A475 /* LaunchScreen.storyboard */,
 				EDEC192421074A4000B2A475 /* Info.plist */,
+				EDEC9EB221BA50C600848679 /* CustomUITextField.swift */,
 			);
 			path = PomodoroApp;
 			sourceTree = "<group>";
@@ -247,6 +250,11 @@
 				TargetAttributes = {
 					EDEC191421074A3F00B2A475 = {
 						CreatedOnToolsVersion = 10.0;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
 					};
 					EDEC192821074A4000B2A475 = {
 						CreatedOnToolsVersion = 10.0;
@@ -314,8 +322,9 @@
 				EDB9FA9C21517DB700D0401F /* Stats.swift in Sources */,
 				ED456385214BEF020072A1AC /* WorkDay.swift in Sources */,
 				EDAEC883214C0D2600A31E92 /* Settings.swift in Sources */,
+				EDEC9EB321BA50C600848679 /* CustomUITextField.swift in Sources */,
 				EDEC191B21074A3F00B2A475 /* TimerViewController.swift in Sources */,
-				ED36625C2155246A005D137E /* UserData.swift in Sources */,
+				EDB9662121B90762006666BE /* SettingsTableViewController.swift in Sources */,
 				EDAEC87E214BF9B900A31E92 /* TimeHandler.swift in Sources */,
 				EDAEC880214BF9EF00A31E92 /* Constants.swift in Sources */,
 				ED456387214BEF0F0072A1AC /* WorkSession.swift in Sources */,

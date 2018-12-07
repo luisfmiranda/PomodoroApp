@@ -1,8 +1,8 @@
 import Foundation
 
 struct Settings {
-    static let workSessionDuration = 6 * 60 * 60
-    static let workSessionsGoal = 1
-    static let workTimeGoal: Int? = 6 * 60 * 60
-    static let timeOnPauseGoal: Int? = 3 * 60 * 60
+    static var workSessionDuration = 25 * 60
+    static var workSessionsGoal = 14
+    static var workTimeGoal: Int? { return workSessionDuration * workSessionsGoal }
+    static var timeOnPauseGoal: Int? = 30 * 60
 }

@@ -1,6 +1,16 @@
+import AVFoundation
+import AudioToolbox
 import UIKit
 
 class TimerViewController: UIViewController {
+    override func viewWillAppear(_ animated: Bool) {
+        if currentDay.currentSession.status == .notStartedYet {
+            currentDay.sessions.append(WorkSession())
+        }
+        
+        updateSessionInfo()
+    }
+    
     private var currentDay = WorkDay() {
         didSet {
             mainTimerLabel.text = currentDay.currentSession.remainingTime.asHMS
@@ -8,6 +18,7 @@ class TimerViewController: UIViewController {
             if currentDay.currentSession.remainingTime == 0 {
                 currentDay.sessions[currentDay.sessionsCount - 1].status = .completed
                 updateSessionInfo()
+                AudioServicesPlaySystemSound(SystemSoundID(1304))
                 
                 // now that the work session is concluded, the transition points become permanent
                 for transition in currentDay.workingLog.transitionsInTheCurrentSession {
